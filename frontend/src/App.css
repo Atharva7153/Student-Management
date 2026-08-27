@@ -16,3 +16,17 @@
     text-decoration: underline red 2px;
     text-underline-offset: 5px;
 }
+
+.Btn{
+    height: 40px;
+    width: 100px;
+    border-radius: 50px;
+    border: none;
+    background-color: rgb(255, 0, 89);
+    font-weight: bolder;
+    margin: 20px;
+}
+
+.Btn:hover{
+    background-color: rgb(125, 5, 47);
+}
