@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Atharva Sharma",
+    "age": 20,
+    "course": "CSE"
+  },
+  {
+    "id": 2,
+    "name": "Rahul Patil",
+    "age": 21,
+    "course": "IT"
+  },
+  {
+    "id": 3,
+    "name": "Laksh Shadija",
+    "age": 20,
+    "course": "CSE"
+  },
+  {
+    "id": 4,
+    "name": "Zeeshan",
+    "age": "20"
+  }
+  
+]

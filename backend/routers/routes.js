@@ -1,33 +1,42 @@
 const express = require("express")
+const fs = require('fs')
+const { json } = require("stream/consumers")
+
+
 const router = express.Router()
 
-const data = [
-    {
-        "name" : "Atharva Sharma",
-        "Age" : 19,
-        "email": "abc@gmail.com"
-    },
-    {
-        "name" : "Sumedh",
-        "Age": 19
-    },
-    {
-        "name" : "IDK",
-        "Age" : 20
-    },
-    {
-        "name" : "GHGHE",
-        "Age" : 95
+
+router.get("/students", (req, res)=>{
+    const data = fs.readFileSync("data.json", "utf-8")
+
+    const students = JSON.parse(data)
+
+    res.json(students)
+})
+
+router.post("/add", (req, res)=>{
+
+    const data = fs.readFileSync("data.json", "utf-8")
+
+    const students = JSON.parse(data)
+
+    const newStudent = {
+        id : students.length + 1,
+        name : req.body.name,
+        age : req.body.age,
+        course : req.body.course
     }
-]
 
-router.get("/atharva", (req, res)=>{
-    res.json(data[0])
+    students.push(newStudent)
+
+    fs.writeFileSync(
+        "data.json",
+        JSON.stringify(students, null, 2)
+    )
+
+    res.status(201).json(newStudent)
 })
 
 
-router.get("/", (req, res)=>{
-    res.json(data)
-})
 
 module.exports = router
