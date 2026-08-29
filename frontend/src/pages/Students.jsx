@@ -2,9 +2,12 @@ import React, { useEffect } from 'react'
 import axios from "axios";
 import { useState } from 'react';
 import "./styles/Students.css"
+import { useNavigate } from 'react-router-dom';
 
 const Students = () => {
   const [students, setStudents] = useState();
+  const navigate = useNavigate()
+
   useEffect(() => {
 
     const getStudents = async () => {
@@ -14,6 +17,13 @@ const Students = () => {
     getStudents()
 
   }, [])
+
+  const Navigate = (id)=>{
+
+    navigate(`/student/id/${id}`)
+  }
+  
+
   if(!students){
     return(
       <div className="main">
@@ -29,7 +39,7 @@ const Students = () => {
     <div className="main">
       <p>This is Students Page</p>
       {students.map(student => (
-        <h1 onClick={()=>Click(student.name)}>{student.name}</h1>
+        <h1 onClick={()=>Navigate(student.id)}>{student.name}</h1>
       
       ))}
       </div>

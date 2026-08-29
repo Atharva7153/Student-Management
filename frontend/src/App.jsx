@@ -5,6 +5,7 @@ import About from "./pages/About"
 import Students from "./pages/Students"
 import Toppers from "./pages/Toppers"
 import Edit from "./pages/Edit"
+import Details from "./pages/Details"
 
 import Error from "./pages/Error"
 import Nav from "./components/Nav"
@@ -24,6 +25,7 @@ function App() {
       <Route path="/students" element={<Students />}/>
       <Route path="/toppers" element={<Toppers />}/>
       <Route path="/edit" element={<Edit />}/>
+      <Route path="/student/id/:id" element={<Details />} />
 
 
 
