@@ -1,11 +1,13 @@
 import axios from 'axios'
 import React from 'react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Edit = () => {
   const [name, setName] = useState()
   const [age, setAge] = useState()
   const [branch, setBranch] = useState()
+  const navigate = useNavigate()
 
   const handleSubmit = async(e)=>{
 
@@ -19,7 +21,8 @@ const Edit = () => {
         age,
         branch
       })
-      console.log("New Student Added")
+      alert("New Student Added")
+      navigate("/students")
 
     }catch(error){
       console.log(error)

@@ -6,6 +6,7 @@ const { json } = require("stream/consumers")
 const router = express.Router()
 
 
+
 router.get("/students", (req, res)=>{
     const data = fs.readFileSync("data.json", "utf-8")
 
@@ -86,11 +87,61 @@ router.put("/student/:id", (req, res) => {
 
 });
 
+router.delete("/student/:id", (req, res)=>{
+
+    
+
+    const data = fs.readFileSync("data.json", "utf-8")
+    const students = JSON.parse(data)
+
+    const TopperData = fs.readFileSync("toppers.json", "utf-8")
+    const toppers = JSON.parse(TopperData)
+
+
+    const id = Number(req.params.id)
+
+    const newTopper = toppers.filter(
+        topper => topper.id !== id
+    )
+
+    const newStudent = students.filter(
+        student => student.id !== id
+    )
+
+    fs.writeFileSync(
+        "data.json",
+        JSON.stringify(newStudent, null , 2)
+    )
+
+    fs.writeFileSync(
+        "toppers.json",
+        JSON.stringify(newTopper, null, 2)
+    )
+
+
+    res.json({
+        message : "Student Deleted Successfully"
+    })
+
+    
+})
+
 router.post("/add-topper", (req, res)=>{
 
     const data = fs.readFileSync("toppers.json", "utf-8")
 
     const students = JSON.parse(data)
+    const name = req.body.name
+
+    const existingStudent = students.filter(
+        student => student.name == name
+    )
+
+    if(existingStudent){
+        return res.json({
+            message : "Student already exist in Toppers list"
+        })
+    }
 
     const newStudent = {
         id : students.length + 1,
@@ -98,6 +149,8 @@ router.post("/add-topper", (req, res)=>{
         age : req.body.age,
         course : req.body.course
     }
+
+    
 
     students.push(newStudent)
 

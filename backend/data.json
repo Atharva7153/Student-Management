@@ -6,26 +6,8 @@
     "course": "CSE"
   },
   {
-    "id": 2,
-    "name": "Rahul Patil",
-    "age": 21,
-    "course": "Mechanical"
-  },
-  {
-    "id": 3,
-    "name": "Laksh Shadija",
-    "age": 20,
-    "course": "CSE"
-  },
-  {
     "id": 4,
-    "name": "Zeeshan",
-    "age": "20",
-    "course": "Mechanical"
-  },
-  {
-    "id": 5,
     "name": "Aditya Takalkar",
-    "age": "21"
+    "age": "20"
   }
 ]

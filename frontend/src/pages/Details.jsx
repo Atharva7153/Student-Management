@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import "./styles/Students.css"
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const Details = () => {
   const { id } = useParams()
   const [student, setStudent] = useState()
   const [message, setMessage] = useState("")
+  const navigate = useNavigate()
+
+
   useEffect(() => {
 
 
@@ -24,6 +27,23 @@ const Details = () => {
   const addToTopper = async ()=>{
     const response = await axios.post(`http://localhost:3000/add-topper`, student)
     setMessage(response.data.message)
+
+  }
+
+  const deleteStudent = async (id)=>{
+
+    const confirmDelete = window.confirm(
+        "Are you sure you want to delete this student?"
+    );
+
+    if (!confirmDelete) {
+        return;
+    }
+
+    const response = await axios.delete(`http://localhost:3000/student/${id}`)
+    setMessage(response.data.message)
+    alert(response.data.message)
+    navigate("/students")
 
   }
 
@@ -50,7 +70,8 @@ const Details = () => {
         <Link className='None' to={`/edit/id/${id}`}>Edit</Link>
         <br />
         <button onClick={()=>{addToTopper()}}>Add to Toppers</button>
-        <br /><br />
+        <br />
+        <button onClick={()=>{deleteStudent(student.id)}}>Delete Student</button>
         <h4>{message}</h4>
       </div>
     </>
