@@ -86,4 +86,35 @@ router.put("/student/:id", (req, res) => {
 
 });
 
+router.post("/add-topper", (req, res)=>{
+
+    const data = fs.readFileSync("toppers.json", "utf-8")
+
+    const students = JSON.parse(data)
+
+    const newStudent = {
+        id : students.length + 1,
+        name : req.body.name,
+        age : req.body.age,
+        course : req.body.course
+    }
+
+    students.push(newStudent)
+
+    fs.writeFileSync(
+        "toppers.json",
+        JSON.stringify(students, null, 2)
+    )
+
+    res.status(201).json({message : "Topper Added Succesfully"})
+})
+
+router.get("/toppers", (req, res)=>{
+    const data = fs.readFileSync("toppers.json", "utf-8")
+
+    const students = JSON.parse(data)
+
+    res.json(students)
+})
+
 module.exports = router

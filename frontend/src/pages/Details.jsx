@@ -6,6 +6,7 @@ import axios from 'axios'
 const Details = () => {
   const { id } = useParams()
   const [student, setStudent] = useState()
+  const [message, setMessage] = useState("")
   useEffect(() => {
 
 
@@ -20,8 +21,10 @@ const Details = () => {
 
   }, [id])
 
-  const addToTopper = ()=>{
-    
+  const addToTopper = async ()=>{
+    const response = await axios.post(`http://localhost:3000/add-topper`, student)
+    setMessage(response.data.message)
+
   }
 
 
@@ -46,7 +49,9 @@ const Details = () => {
         <h4>Edit Student :-</h4>
         <Link className='None' to={`/edit/id/${id}`}>Edit</Link>
         <br />
-        <button>Add to Toppers</button>
+        <button onClick={()=>{addToTopper()}}>Add to Toppers</button>
+        <br /><br />
+        <h4>{message}</h4>
       </div>
     </>
   )
