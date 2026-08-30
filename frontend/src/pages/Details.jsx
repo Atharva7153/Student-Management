@@ -20,6 +20,10 @@ const Details = () => {
 
   }, [id])
 
+  const addToTopper = ()=>{
+    
+  }
+
 
   if (!student) {
     return (<h1>Loading</h1>)
@@ -41,6 +45,8 @@ const Details = () => {
         <br />
         <h4>Edit Student :-</h4>
         <Link className='None' to={`/edit/id/${id}`}>Edit</Link>
+        <br />
+        <button>Add to Toppers</button>
       </div>
     </>
   )

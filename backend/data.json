@@ -9,7 +9,7 @@
     "id": 2,
     "name": "Rahul Patil",
     "age": 21,
-    "course": "IT"
+    "course": "Mechanical"
   },
   {
     "id": 3,
@@ -20,7 +20,8 @@
   {
     "id": 4,
     "name": "Zeeshan",
-    "age": "20"
+    "age": "20",
+    "course": "Mechanical"
   },
   {
     "id": 5,
