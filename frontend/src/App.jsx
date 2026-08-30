@@ -10,6 +10,7 @@ import Details from "./pages/Details"
 import Error from "./pages/Error"
 import Nav from "./components/Nav"
 import Footer from "./components/Footer"
+import EditStudent from "./pages/EditStudent"
 
 
 
@@ -26,6 +27,7 @@ function App() {
       <Route path="/toppers" element={<Toppers />}/>
       <Route path="/edit" element={<Edit />}/>
       <Route path="/student/id/:id" element={<Details />} />
+      <Route path="/edit/id/:id" element={<EditStudent />} />
 
 
 
