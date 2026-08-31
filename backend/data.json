@@ -6,8 +6,21 @@
     "course": "CSE"
   },
   {
-    "id": 4,
+    "id": 2,
     "name": "Aditya Takalkar",
-    "age": "20"
+    "age": "20",
+    "course": "CSE"
+  },
+  {
+    "id": 3,
+    "name": "Sumedh Tapkire",
+    "age": "20",
+    "course": "Mechanical"
+  },
+  {
+    "id": 4,
+    "name": "Rehan Shaikh",
+    "age": "20",
+    "course": "Mechanical"
   }
 ]

@@ -8,7 +8,8 @@ const Footer = () => {
     <div className="line">
         
     </div>
-    <h4>Nothing, Its just me planning my Comeback TBH</h4>
+    <p>Nothing, Its just me planning my Comeback TBH</p>
+    <p>by :- Atharva Sharma</p>
     
     </>
   )

@@ -5,7 +5,27 @@ const { json } = require("stream/consumers")
 
 const router = express.Router()
 
+router.get("/total-students", (req, res)=>{
 
+    const data = fs.readFileSync("data.json", "utf-8")
+    const students = JSON.parse(data)
+
+    res.json({
+        total : students.length
+    })
+    
+})
+
+router.get("/total-toppers", (req, res)=>{
+
+    const data = fs.readFileSync("toppers.json", "utf-8")
+    const students = JSON.parse(data)
+
+    res.json({
+        total : students.length
+    })
+    
+})
 
 router.get("/students", (req, res)=>{
     const data = fs.readFileSync("data.json", "utf-8")
@@ -25,7 +45,7 @@ router.post("/add", (req, res)=>{
         id : students.length + 1,
         name : req.body.name,
         age : req.body.age,
-        course : req.body.course
+        course : req.body.branch
     }
 
     students.push(newStudent)
@@ -133,7 +153,7 @@ router.post("/add-topper", (req, res)=>{
     const students = JSON.parse(data)
     const name = req.body.name
 
-    const existingStudent = students.filter(
+    const existingStudent = students.some(
         student => student.name == name
     )
 

@@ -19,7 +19,7 @@ const Edit = () => {
       await axios.post("http://localhost:3000/add",{
         name,
         age,
-        branch
+        branch,
       })
       alert("New Student Added")
       navigate("/students")
