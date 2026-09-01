@@ -22,5 +22,11 @@
     "name": "Rehan Shaikh",
     "age": "20",
     "course": "Mechanical"
+  },
+  {
+    "id": 5,
+    "name": "Prathamesh Veer",
+    "age": "20",
+    "course": "CSE"
   }
 ]

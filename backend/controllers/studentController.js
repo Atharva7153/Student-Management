@@ -1,6 +1,4 @@
-const express = require("express")
 const fs = require('fs')
-const { json } = require("stream/consumers")
 
 
 exports.getTotalStudents = (req, res) =>{
@@ -41,11 +39,19 @@ exports.addStudents = (req, res) =>{
 
     const students = JSON.parse(data)
 
+    const {name, age, branch} = req.body
+
+    if (!name || !age || !branch) {
+    return res.status(400).json({
+        message: "Some fields are Missing"
+    })
+}
+
     const newStudent = {
         id : students.length + 1,
-        name : req.body.name,
-        age : req.body.age,
-        course : req.body.branch
+        name : name,
+        age : age,
+        course : branch
     }
 
     students.push(newStudent)
