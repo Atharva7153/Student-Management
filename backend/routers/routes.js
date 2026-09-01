@@ -190,28 +190,17 @@ router.get("/toppers", (req, res)=>{
     res.json(students)
 })
 
-router.get("/get-cs", (req, res)=>{
+
+
+router.get("/get-:course", (req, res)=>{
 
     const data = fs.readFileSync("data.json", "utf-8")
+    const course = req.params.course
 
     const students = JSON.parse(data)
 
     const Students = students.filter(
-        student => student.course == "CSE"
-    )
-
-    res.json(Students)
-
-})
-
-router.get("/get-mech", (req, res)=>{
-
-    const data = fs.readFileSync("data.json", "utf-8")
-
-    const students = JSON.parse(data)
-
-    const Students = students.filter(
-        student => student.course == "Mechanical"
+        student => student.course == course
     )
 
     res.json(Students)

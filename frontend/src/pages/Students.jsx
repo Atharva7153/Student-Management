@@ -6,89 +6,68 @@ import { useNavigate } from 'react-router-dom';
 
 const Students = () => {
   const [students, setStudents] = useState();
-  const [CsStudents, setCsStudents] = useState(false)
-  const [mechStudents, setMechStudents] = useState(false)
+  const [course, setCourse] = useState("all")
 
   const navigate = useNavigate()
 
-  const setMechTrue = ()=>{
-
-    if(mechStudents == true){
-      setMechStudents(false)
-    }else{
-      setMechStudents(true)
-    }
-    
-    
-  }
-
-  const setCsTrue = ()=>{
-
-    if(CsStudents == true){
-      setCsStudents(false)
-    }else{
-      setCsStudents(true)
-    }
-    
-  }
-
   useEffect(() => {
 
-    
+
 
     const getStudents = async () => {
-      if((CsStudents == false && mechStudents == false)){
+      if (course == "all") {
 
         const response = axios.get("http://localhost:3000/students")
         setStudents((await response).data)
 
       }
+      else{
 
-      else if(CsStudents == true){
+        const response = axios.get(`http://localhost:3000/get-${course}`)
+        setStudents((await response).data)
 
-        const response = await axios.get("http://localhost:3000/get-cs")
-        setStudents(response.data)
-      }
-
-      else if(mechStudents == true){
-        const response = await axios.get("http://localhost:3000/get-mech")
-        setStudents(response.data)
       }
 
     }
     getStudents()
-    console.log("mech", mechStudents)
-    console.log("cs", CsStudents)
 
-  }, [mechStudents, CsStudents])
+  }, [course])
 
-  const Navigate = (id)=>{
+  const Navigate = (id) => {
 
     navigate(`/student/id/${id}`)
   }
-  
 
-  if(!students){
-    return(
+
+  if (!students) {
+    return (
       <div className="main">
-      <p>There are No Students, or Either Backend is Turned OFF</p>
+        <p>There are No Students, or Either Backend is Turned OFF</p>
       </div>
     )
   }
-  const Click = (name)=>{
+  const Click = (name) => {
     alert("You Clicked " + name)
   }
   return (
     <>
-    <div className="main">
-      <button onClick={()=>setMechTrue()}>Mechanical</button>
-      <button onClick={()=>setCsTrue()}>CSE</button>
+      <div className="main">
 
-      <p>This is Students Page</p>
-      {students.map(student => (
-        <h1 key={student.id} onClick={()=>Navigate(student.id)}>{student.name}</h1>
-      
-      ))}
+        <label>Course : </label>
+        <select
+          value={course}
+          onChange={(e) => setCourse(e.target.value)}
+        >
+          <option value="all">All</option>
+          <option value="CSE">CSE</option>
+          <option value="Mechanical">Mechanical</option>
+        </select>
+
+        <p>This is Students Page</p>
+        {students.map(student => (
+          <h1 key={student.id} onClick={() => Navigate(student.id)}>{student.name}</h1>
+
+        ))}
       </div>
     </>
   )
