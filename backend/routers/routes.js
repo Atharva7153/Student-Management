@@ -21,6 +21,8 @@ router.put("/student/:id", studentController.updateStudentByID);
 
 router.delete("/student/:id", studentController.deleteStudentByID)
 
+router.delete("/delete-topper/:id", studentController.deleteTopperByID)
+
 router.post("/add-topper", studentController.addTopper)
 
 router.get("/toppers", studentController.getAllToppers)

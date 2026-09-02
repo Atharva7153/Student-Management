@@ -5,6 +5,8 @@ import "./styles/Students.css"
 
 const Toppers = () => {
   const [students, setStudent] = useState([])
+  const [message, setMessage] = useState()
+
   const navigate = useNavigate()
 
   const Navigate = (id)=>{
@@ -19,7 +21,12 @@ const Toppers = () => {
     }
     getToppers()
     
-  }, [])
+  }, [message])
+
+  const handleDelete = async (id)=>{
+    const response = await axios.delete(`http://localhost:3000/delete-topper/${id}`)
+    setMessage(response.data.message)
+  }
   return (
     
     <>
@@ -28,10 +35,13 @@ const Toppers = () => {
       {students.map((student) => (
         <div key={student.id}>
           <h3 onClick={()=>{Navigate(student.id)}}>{student.name}</h3>
+          
+          <button onClick={()=>handleDelete(student.id)}>Delete From Toppers</button>
         </div>
       ))}
 
     </div>
+    <p>{message}</p>
     </>
   )
 }

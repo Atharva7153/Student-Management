@@ -152,6 +152,33 @@ exports.deleteStudentByID = (req, res) =>{
 
 }
 
+exports.deleteTopperByID = (req, res) =>{
+
+
+    const TopperData = fs.readFileSync("toppers.json", "utf-8")
+    const toppers = JSON.parse(TopperData)
+
+
+    const id = Number(req.params.id)
+
+    const newTopper = toppers.filter(
+        topper => topper.id !== id
+    )
+
+
+    fs.writeFileSync(
+        "toppers.json",
+        JSON.stringify(newTopper, null, 2)
+    )
+
+
+    res.json({
+        message : "Student Removed from Toppers"
+    })
+    
+
+}
+
 exports.addTopper = (req, res) =>{
 
     const data = fs.readFileSync("toppers.json", "utf-8")
