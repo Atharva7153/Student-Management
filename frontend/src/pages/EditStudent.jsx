@@ -9,11 +9,14 @@ const EditStudent = () => {
     const [student, setStudent] = useState(null)
     const [loading, setLoading] = useState(true)
 
+    const backend_uri = import.meta.env.VITE_BACKEND_URI
+    console.log(backend_uri)
+
     useEffect(() => {
         const getStudent = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:3000/student/id/${id}`
+                    `${backend_uri}/student/id/${id}`
                 )
 
                 console.log("Student:", response.data)
@@ -42,7 +45,7 @@ const EditStudent = () => {
 
         try {
             await axios.put(
-                `http://localhost:3000/student/${id}`,
+                `${backend_uri}/student/${id}`,
                 student
             )
 

@@ -7,6 +7,9 @@ const Toppers = () => {
   const [toppers, setToppers] = useState([])
   const [message, setMessage] = useState()
 
+  const backend_uri = import.meta.env.VITE_BACKEND_URI
+  console.log(backend_uri)
+
   const navigate = useNavigate()
 
   const Navigate = (id)=>{
@@ -16,7 +19,7 @@ const Toppers = () => {
   useEffect(()=>{
     const getToppers = async ()=>{
 
-      const response = await axios.get("http://localhost:3000/toppers")
+      const response = await axios.get(`${backend_uri}/toppers`)
       setToppers(response.data)
     }
     getToppers()
@@ -24,7 +27,7 @@ const Toppers = () => {
   }, [message])
 
   const handleDelete = async (id)=>{
-    const response = await axios.delete(`http://localhost:3000/delete-topper/${id}`)
+    const response = await axios.delete(`${backend_uri}/delete-topper/${id}`)
     setMessage(response.data.message)
   }
   return (

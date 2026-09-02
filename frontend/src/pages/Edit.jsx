@@ -9,13 +9,16 @@ const Edit = () => {
   const [branch, setBranch] = useState()
   const [message, setMessage] = useState()
 
+  const backend_uri = import.meta.env.VITE_BACKEND_URI
+  console.log(backend_uri)
+
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     try {
-        const response = await axios.post("http://localhost:3000/add", {
+        const response = await axios.post(`${backend_uri}/add`, {
             name,
             age,
             branch,

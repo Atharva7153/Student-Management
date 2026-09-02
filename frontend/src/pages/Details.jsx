@@ -9,13 +9,16 @@ const Details = () => {
   const [message, setMessage] = useState("")
   const navigate = useNavigate()
 
+  const backend_uri = import.meta.env.VITE_BACKEND_URI
+  console.log(backend_uri)
+
 
   useEffect(() => {
 
 
     const getStudent = async () => {
 
-      const response = await axios.get(`http://localhost:3000/student/id/${id}`)
+      const response = await axios.get(`${backend_uri}/student/id/${id}`)
       setStudent(response.data)
     }
 
@@ -25,7 +28,7 @@ const Details = () => {
   }, [id])
 
   const addToTopper = async (id)=>{
-    const response = await axios.post(`http://localhost:3000/add-topper`, {
+    const response = await axios.post(`${backend_uri}/add-topper`, {
       _id : id
     })
     setMessage(response.data.message)
@@ -42,7 +45,7 @@ const Details = () => {
         return;
     }
 
-    const response = await axios.delete(`http://localhost:3000/student/${id}`)
+    const response = await axios.delete(`${backend_uri}/student/${id}`)
     setMessage(response.data.message)
     alert(response.data.message)
     navigate("/students")

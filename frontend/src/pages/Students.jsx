@@ -8,6 +8,9 @@ const Students = () => {
   const [students, setStudents] = useState();
   const [course, setCourse] = useState("all")
 
+  const backend_uri = import.meta.env.VITE_BACKEND_URI
+  console.log(backend_uri)
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -17,13 +20,13 @@ const Students = () => {
     const getStudents = async () => {
       if (course == "all") {
 
-        const response = axios.get("http://localhost:3000/students")
+        const response = axios.get(`${backend_uri}/students`)
         setStudents((await response).data)
 
       }
       else{
 
-        const response = axios.get(`http://localhost:3000/get-${course}`)
+        const response = axios.get(`${backend_uri}/get-${course}`)
         setStudents((await response).data)
 
       }

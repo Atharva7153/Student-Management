@@ -10,11 +10,13 @@ export const Home = () => {
     const navigate = useNavigate()
     const [totalStudent, setTotalStudent] = useState()
     const [totalTopper, setTotalToppers] = useState()
+    const backend_uri = import.meta.env.VITE_BACKEND_URI
+    console.log(backend_uri)
     
     useEffect(()=>{
 
         const getTotal = async ()=>{
-            const response = await axios.get("http://localhost:3000/total-students")
+            const response = await axios.get(`${backend_uri}/total-students`)
             setTotalStudent(response.data.total)
 
         }
@@ -26,7 +28,7 @@ export const Home = () => {
     useEffect(()=>{
         const getTotalToppers = async()=>{
 
-            const response = await axios.get("http://localhost:3000/total-toppers")
+            const response = await axios.get(`${backend_uri}/total-toppers`)
             setTotalToppers(response.data.total)
 
         }
