@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import "./styles/Students.css"
 
 const Toppers = () => {
-  const [students, setStudent] = useState([])
+  const [toppers, setToppers] = useState([])
   const [message, setMessage] = useState()
 
   const navigate = useNavigate()
@@ -17,7 +17,7 @@ const Toppers = () => {
     const getToppers = async ()=>{
 
       const response = await axios.get("http://localhost:3000/toppers")
-      setStudent(response.data)
+      setToppers(response.data)
     }
     getToppers()
     
@@ -32,11 +32,11 @@ const Toppers = () => {
     <>
     <div className="main">
       <h1>Toppers :-</h1>
-      {students.map((student) => (
-        <div key={student.id}>
-          <h3 onClick={()=>{Navigate(student.id)}}>{student.name}</h3>
+      {toppers.map((topper) => (
+        <div key={topper.student.id}>
+          <h3 onClick={()=>{Navigate(topper.student._id)}}>{topper.student.name}</h3>
           
-          <button onClick={()=>handleDelete(student.id)}>Delete From Toppers</button>
+          <button onClick={()=>handleDelete(topper._id)}>Delete From Toppers</button>
         </div>
       ))}
 

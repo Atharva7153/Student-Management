@@ -1,14 +1,1 @@
-[
-  {
-    "id": 1,
-    "name": "Atharva Sharma",
-    "age": 20,
-    "course": "CSE"
-  },
-  {
-    "id": 2,
-    "name": "Rehan Shaikh",
-    "age": "20",
-    "course": "Mechanical"
-  }
-]
+[]

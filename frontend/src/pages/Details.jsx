@@ -24,8 +24,10 @@ const Details = () => {
 
   }, [id])
 
-  const addToTopper = async ()=>{
-    const response = await axios.post(`http://localhost:3000/add-topper`, student)
+  const addToTopper = async (id)=>{
+    const response = await axios.post(`http://localhost:3000/add-topper`, {
+      _id : id
+    })
     setMessage(response.data.message)
 
   }
@@ -69,9 +71,9 @@ const Details = () => {
         <h4>Edit Student :-</h4>
         <Link className='None' to={`/edit/id/${id}`}>Edit</Link>
         <br />
-        <button onClick={()=>{addToTopper()}}>Add to Toppers</button>
+        <button onClick={()=>{addToTopper(student._id)}}>Add to Toppers</button>
         <br />
-        <button onClick={()=>{deleteStudent(student.id)}}>Delete Student</button>
+        <button onClick={()=>{deleteStudent(student._id)}}>Delete Student</button>
         <h4>{message}</h4>
       </div>
     </>

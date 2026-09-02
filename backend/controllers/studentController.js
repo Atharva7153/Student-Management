@@ -1,25 +1,23 @@
 const fs = require('fs')
 const Student = require("../models/students")
+const Topper = require("../models/toppers")
 
 
-exports.getTotalStudents = (req, res) => {
+exports.getTotalStudents = async (req, res) => {
 
-    const data = fs.readFileSync("data.json", "utf-8")
-    const students = JSON.parse(data)
-
+    const total = await Student.countDocuments()
     res.json({
-        total: students.length
+        total : total
     })
 
 }
 
-exports.getTotalToppers = (req, res) => {
+exports.getTotalToppers = async (req, res) => {
 
-    const data = fs.readFileSync("toppers.json", "utf-8")
-    const students = JSON.parse(data)
+    const total = await Topper.countDocuments()
 
     res.json({
-        total: students.length
+        total: total
     })
 
 }
@@ -72,91 +70,43 @@ exports.getStudentByID = async(req, res) => {
 
 }
 
-exports.updateStudentByID = (req, res) => {
+exports.updateStudentByID = async (req, res) => {
 
-    const data = fs.readFileSync("data.json", "utf-8");
-    const students = JSON.parse(data);
+    const id = req.params.id;
 
-    const id = Number(req.params.id);
-
-    const student = students.find(
-        student => student.id === id
-    );
-
-    if (!student) {
-        return res.status(404).json({
-            message: "Student not found"
-        });
-    }
-
-    student.name = req.body.name;
-    student.age = req.body.age;
-    student.course = req.body.course;
-
-    fs.writeFileSync(
-        "data.json",
-        JSON.stringify(students, null, 2)
-    );
+    const student = await Student.findByIdAndUpdate(
+        id,
+        req.body,
+        {new : true}
+    )
 
     res.json(student);
-
 }
 
-exports.deleteStudentByID = (req, res) => {
+exports.deleteStudentByID = async (req, res) => {
 
-    const data = fs.readFileSync("data.json", "utf-8")
-    const students = JSON.parse(data)
+    const id = req.params.id
+    const student = await Student.findByIdAndDelete(id)
 
-    const TopperData = fs.readFileSync("toppers.json", "utf-8")
-    const toppers = JSON.parse(TopperData)
-
-
-    const id = Number(req.params.id)
-
-    const newTopper = toppers.filter(
-        topper => topper.id !== id
-    )
-
-    const newStudent = students.filter(
-        student => student.id !== id
-    )
-
-    fs.writeFileSync(
-        "data.json",
-        JSON.stringify(newStudent, null, 2)
-    )
-
-    fs.writeFileSync(
-        "toppers.json",
-        JSON.stringify(newTopper, null, 2)
-    )
-
+    if(!student){
+        return res.json({
+            message : "Student Not Found"
+        })
+    }
 
     res.json({
-        message: "Student Deleted Successfully"
+        message : "Student Deleted"
     })
 
 
 }
 
-exports.deleteTopperByID = (req, res) => {
+exports.deleteTopperByID = async (req, res) => {
 
 
-    const TopperData = fs.readFileSync("toppers.json", "utf-8")
-    const toppers = JSON.parse(TopperData)
+    const id = req.params.id
 
-
-    const id = Number(req.params.id)
-
-    const newTopper = toppers.filter(
-        topper => topper.id !== id
-    )
-
-
-    fs.writeFileSync(
-        "toppers.json",
-        JSON.stringify(newTopper, null, 2)
-    )
+    const topper = await Topper.findByIdAndDelete(id)
 
 
     res.json({
@@ -166,65 +116,42 @@ exports.deleteTopperByID = (req, res) => {
 
 }
 
-exports.addTopper = (req, res) => {
+exports.addTopper = async (req, res) => {
 
-    const data = fs.readFileSync("toppers.json", "utf-8")
-
-    const students = JSON.parse(data)
-    const name = req.body.name
-
-    const existingStudent = students.some(
-        student => student.name == name
-    )
-
-    if (existingStudent) {
+    const id = req.body._id
+    const exists = await Topper.exists({student : id})
+    if(exists){
         return res.json({
-            message: "Student already exist in Toppers list"
+            message : "This student already exists in Topper List"
         })
     }
 
-    const newStudent = {
-        id: students.length + 1,
-        name: req.body.name,
-        age: req.body.age,
-        course: req.body.course
-    }
-
-
-
-    students.push(newStudent)
-
-    fs.writeFileSync(
-        "toppers.json",
-        JSON.stringify(students, null, 2)
-    )
+    const topper = await Topper.create({
+        student : id
+    })
 
     res.status(201).json({ message: "Topper Added Succesfully" })
 
 }
 
-exports.getAllToppers = (req, res) => {
+exports.getAllToppers = async (req, res) => {
 
-    const data = fs.readFileSync("toppers.json", "utf-8")
+    const toppers = await Topper.find().populate("student")
 
-    const students = JSON.parse(data)
-
-    res.json(students)
+    res.json(toppers)
 
 }
 
-exports.getStudentByCourse = (req, res) => {
+exports.getStudentByCourse = async (req, res) => {
 
-    const data = fs.readFileSync("data.json", "utf-8")
+    
     const course = req.params.course
 
-    const students = JSON.parse(data)
+    const students = await Student.find({
+        course : course
+    })
 
-    const Students = students.filter(
-        student => student.course == course
-    )
-
-    res.json(Students)
+    res.json(students)
 
 }
 
