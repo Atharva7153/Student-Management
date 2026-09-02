@@ -65,7 +65,7 @@ const Students = () => {
 
         <p>This is Students Page</p>
         {students.map(student => (
-          <h1 key={student.id} onClick={() => Navigate(student.id)}>{student.name}</h1>
+          <h1 key={student._id} onClick={() => Navigate(student._id)}>{student.name}</h1>
 
         ))}
       </div>

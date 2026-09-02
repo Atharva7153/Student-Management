@@ -1,83 +1,70 @@
 const fs = require('fs')
+const Student = require("../models/students")
 
 
-exports.getTotalStudents = (req, res) =>{
+exports.getTotalStudents = (req, res) => {
 
     const data = fs.readFileSync("data.json", "utf-8")
     const students = JSON.parse(data)
 
     res.json({
-        total : students.length
+        total: students.length
     })
 
 }
 
-exports.getTotalToppers = (req, res) =>{
+exports.getTotalToppers = (req, res) => {
 
     const data = fs.readFileSync("toppers.json", "utf-8")
     const students = JSON.parse(data)
 
     res.json({
-        total : students.length
+        total: students.length
     })
 
 }
 
-exports.getAllStudents = (req, res) =>{
+exports.getAllStudents = async (req, res) => {
 
-    const data = fs.readFileSync("data.json", "utf-8")
-
-    const students = JSON.parse(data)
+    const students = await Student.find()
 
     res.json(students)
 }
 
 
-exports.addStudents = (req, res) =>{
+exports.addStudents = async (req, res) => {
 
-    const data = fs.readFileSync("data.json", "utf-8")
-
-    const students = JSON.parse(data)
-
-    const {name, age, branch} = req.body
+    const { name, age, branch } = req.body
 
     if (!name || !age || !branch) {
-    return res.status(400).json({
-        message: "Some fields are Missing"
-    })
-}
-
-    const newStudent = {
-        id : students.length + 1,
-        name : name,
-        age : age,
-        course : branch
+        return res.status(400).json({
+            message: "Some fields are Missing"
+        })
     }
 
-    students.push(newStudent)
+    const student = await Student.create({
+        name: name,
+        age: age,
+        course: branch
+    })
 
-    fs.writeFileSync(
-        "data.json",
-        JSON.stringify(students, null, 2)
-    )
+    console.log("New Student Added")
 
-    res.status(201).json(newStudent)
+    res.json(student)
+
 }
 
-exports.getStudentByID = (req, res) =>{
 
-    const data = fs.readFileSync("data.json", "utf-8");
-    const students = JSON.parse(data);
 
-    const id = Number(req.params.id);
+exports.getStudentByID = async(req, res) => {
 
-    const student = students.find(
-        (student) => student.id === id
-    )
+    const id = req.params.id;
 
-    if(!student){
+    const student = await Student.findById(id)
+
+    if (!student) {
         return res.status(404).json({
-            message : "Student not found"
+            message: "Student not found"
         })
     }
 
@@ -85,7 +72,7 @@ exports.getStudentByID = (req, res) =>{
 
 }
 
-exports.updateStudentByID = (req, res) =>{
+exports.updateStudentByID = (req, res) => {
 
     const data = fs.readFileSync("data.json", "utf-8");
     const students = JSON.parse(data);
@@ -115,7 +102,7 @@ exports.updateStudentByID = (req, res) =>{
 
 }
 
-exports.deleteStudentByID = (req, res) =>{
+exports.deleteStudentByID = (req, res) => {
 
     const data = fs.readFileSync("data.json", "utf-8")
     const students = JSON.parse(data)
@@ -136,7 +123,7 @@ exports.deleteStudentByID = (req, res) =>{
 
     fs.writeFileSync(
         "data.json",
-        JSON.stringify(newStudent, null , 2)
+        JSON.stringify(newStudent, null, 2)
     )
 
     fs.writeFileSync(
@@ -146,13 +133,13 @@ exports.deleteStudentByID = (req, res) =>{
 
 
     res.json({
-        message : "Student Deleted Successfully"
+        message: "Student Deleted Successfully"
     })
-    
+
 
 }
 
-exports.deleteTopperByID = (req, res) =>{
+exports.deleteTopperByID = (req, res) => {
 
 
     const TopperData = fs.readFileSync("toppers.json", "utf-8")
@@ -173,13 +160,13 @@ exports.deleteTopperByID = (req, res) =>{
 
 
     res.json({
-        message : "Student Removed from Toppers"
+        message: "Student Removed from Toppers"
     })
-    
+
 
 }
 
-exports.addTopper = (req, res) =>{
+exports.addTopper = (req, res) => {
 
     const data = fs.readFileSync("toppers.json", "utf-8")
 
@@ -190,20 +177,20 @@ exports.addTopper = (req, res) =>{
         student => student.name == name
     )
 
-    if(existingStudent){
+    if (existingStudent) {
         return res.json({
-            message : "Student already exist in Toppers list"
+            message: "Student already exist in Toppers list"
         })
     }
 
     const newStudent = {
-        id : students.length + 1,
-        name : req.body.name,
-        age : req.body.age,
-        course : req.body.course
+        id: students.length + 1,
+        name: req.body.name,
+        age: req.body.age,
+        course: req.body.course
     }
 
-    
+
 
     students.push(newStudent)
 
@@ -212,21 +199,21 @@ exports.addTopper = (req, res) =>{
         JSON.stringify(students, null, 2)
     )
 
-    res.status(201).json({message : "Topper Added Succesfully"})
-    
+    res.status(201).json({ message: "Topper Added Succesfully" })
+
 }
 
-exports.getAllToppers = (req, res) =>{
+exports.getAllToppers = (req, res) => {
 
     const data = fs.readFileSync("toppers.json", "utf-8")
 
     const students = JSON.parse(data)
 
-    res.json(students)  
-    
+    res.json(students)
+
 }
 
-exports.getStudentByCourse = (req, res) =>{
+exports.getStudentByCourse = (req, res) => {
 
     const data = fs.readFileSync("data.json", "utf-8")
     const course = req.params.course
@@ -238,7 +225,7 @@ exports.getStudentByCourse = (req, res) =>{
     )
 
     res.json(Students)
-    
+
 }
 
 
