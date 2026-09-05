@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom"
 import { useEffect } from "react"
 import axios from "axios"
 
+import PieChart from "../components/PieChart"
 
 export const Home = () => {
 
@@ -48,6 +49,11 @@ export const Home = () => {
                 <br /><br />
                 <p>This is the 3rd Time i am making this, This Time Only by hand Not even uisng AI to make ui</p>
                 <br /><br />
+
+                <div className="piechart">
+                    <PieChart />
+                </div>
+
                 
                 <p>There are total {totalStudent} Students </p>
                 <p>There are total {totalTopper} Toppers </p>

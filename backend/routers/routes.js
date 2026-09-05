@@ -27,6 +27,7 @@ router.post("/add-topper", studentController.addTopper)
 
 router.get("/toppers", studentController.getAllToppers)
 
+router.get("/get-courses", studentController.getCourses)
 
 
 router.get("/get-:course", studentController.getStudentByCourse)

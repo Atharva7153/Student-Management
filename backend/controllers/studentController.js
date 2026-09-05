@@ -155,5 +155,16 @@ exports.getStudentByCourse = async (req, res) => {
 
 }
 
+exports.getCourses = async (req, res)=>{
+    const courses = await Student.aggregate([
+        {
+            $group : {
+                _id : "$course",
+                total : {$sum : 1}
+            }
+        }
+    ])
 
+    res.json(courses)
+}
 
