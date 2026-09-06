@@ -10,6 +10,8 @@ const Nav = () => {
         <Link className='None' to={"/about"}>About Me</Link>
         <Link className='None' to={"/toppers"}>Toppers</Link>
         <Link className='None' to={"/edit"}>Edit</Link>
+        <Link className='None' to={"/login"}>Login</Link>
+        <Link className='None' to={"/signup"}>Sign Up</Link>
     </div>
   )
 }
