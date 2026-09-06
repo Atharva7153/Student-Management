@@ -1,6 +1,7 @@
 const express = require("express")
 
 const studentController = require("../controllers/studentController")
+const authMiddleware = require("../middleware/authMiddleware")
 
 
 const router = express.Router()
@@ -9,7 +10,17 @@ router.get("/total-students", studentController.getTotalStudents)
 
 router.get("/total-toppers", studentController.getTotalToppers)
 
+router.get("/get-courses", studentController.getCourses)
+
 router.get("/students", studentController.getAllStudents)
+
+router.get("/get-:course", studentController.getStudentByCourse)
+
+router.use(authMiddleware)
+
+
+
+
 
 router.post("/add", studentController.addStudents)
 
@@ -25,9 +36,6 @@ router.post("/add-topper", studentController.addTopper)
 
 router.get("/toppers", studentController.getAllToppers)
 
-router.get("/get-courses", studentController.getCourses)
 
-
-router.get("/get-:course", studentController.getStudentByCourse)
 
 module.exports = router
