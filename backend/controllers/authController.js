@@ -1,6 +1,7 @@
 const Users = require("../models/user")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken");
+const user = require("../models/user");
 
 
 exports.registerUser = async (req, res) => {
@@ -92,3 +93,4 @@ exports.getProfile = async (req, res)=>{
         user
     })
 }
+

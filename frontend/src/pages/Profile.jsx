@@ -1,13 +1,16 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
+import api from '../../api/axios';
+import { useAuth } from '../../context/AuthContext1';
 
 const Profile = () => {
+  const {logout} = useAuth()
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
-      const response = await api.post("/logout");
-
-      console.log(response.data);
+      
+      await logout()
 
       navigate("/login");
 

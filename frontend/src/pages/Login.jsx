@@ -2,8 +2,12 @@ import React from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from '../../api/axios'
+import { useAuth } from '../../context/AuthContext1'
 
 const Login = () => {
+
+    const {login} = useAuth()
+
     const [message, setMessage] = useState()
     const [formData, setFormData] = useState({
         email : "",
@@ -22,13 +26,8 @@ const Login = () => {
         e.preventDefault()
 
         try{
-            const response = await api.post(
-                "/login",
-                formData
-            )
-            console.log(response.data)
-            setMessage(response.data.message)
-            navigate("/profile")
+            await login(formData.email, formData.password)
+            navigate("/")
 
         }catch(error){
 
