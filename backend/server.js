@@ -1,7 +1,10 @@
 const express  = require("express")
 const cors = require("cors")
 const router = require("./routers/routes")
+const authRouter = require("./routers/auth")
+
 const dotenv = require("dotenv")
+
 const connectDb = require("./config/db")
 
 dotenv.config()
@@ -9,9 +12,13 @@ dotenv.config()
 
 const app = express()
 
+
+app.use(express.urlencoded({ extended: true }));
+
 app.use(cors())
 app.use(express.json())
 
+app.use(authRouter)
 app.use(router)
 
 

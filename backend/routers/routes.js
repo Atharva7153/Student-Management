@@ -1,6 +1,4 @@
 const express = require("express")
-const fs = require('fs')
-const { json } = require("stream/consumers")
 
 const studentController = require("../controllers/studentController")
 
