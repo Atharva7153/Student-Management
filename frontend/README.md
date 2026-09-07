@@ -1,16 +1,34 @@
-# React + Vite
+# 🎨 Student Management System — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend client for the Student Management System built with **React 19**, **Vite**, **Chart.js**, and **Pure CSS** using a custom White + Red theme.
 
-Currently, two official plugins are available:
+For the full project overview, architecture, and API documentation, please see the [Root README](../README.md).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Available Scripts
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+In the `frontend/` directory, you can run:
 
-## Expanding the ESLint configuration
+### `npm run dev`
+Runs the app in development mode at [http://localhost:5173](http://localhost:5173) with fast Hot Module Replacement (HMR).
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### `npm run build`
+Builds the app for production into the `dist` folder. It bundles React code and optimizes assets for peak performance.
+
+### `npm run preview`
+Locally preview the production build after running `npm run build`.
+
+### `npm run lint`
+Runs ESLint across all `.js` and `.jsx` files to ensure code quality.
+
+---
+
+## ⚙️ Environment Configuration
+
+Create a `.env` file in this directory:
+
+```env
+VITE_BACKEND_URI=http://localhost:3000
+```
+
