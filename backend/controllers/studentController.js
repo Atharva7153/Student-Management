@@ -168,3 +168,34 @@ exports.getCourses = async (req, res)=>{
     res.json(courses)
 }
 
+exports.getToppersByCourse = async (req, res) => {
+    try {
+        const courses = await Student.distinct("course")
+        const toppers = await Topper.find().populate("student")
+
+        const courseCounts = {}
+        courses.forEach((c) => {
+            if (c) {
+                courseCounts[c] = 0
+            }
+        })
+
+        toppers.forEach((item) => {
+            if (item.student && item.student.course) {
+                const course = item.student.course
+                courseCounts[course] = (courseCounts[course] || 0) + 1
+            }
+        })
+
+        const result = Object.keys(courseCounts).map((course) => ({
+            _id: course,
+            total: courseCounts[course]
+        }))
+
+        res.json(result)
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+}
+
+

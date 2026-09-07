@@ -15,6 +15,8 @@ router.get("/total-toppers", studentController.getTotalToppers)
 
 router.get("/get-courses", studentController.getCourses)
 
+router.get("/get-toppers-by-course", studentController.getToppersByCourse)
+
 router.get("/students", studentController.getAllStudents)
 
 router.get("/get-:course", studentController.getStudentByCourse)

@@ -1,65 +1,94 @@
-import { useState } from "react"
-import "../App.css"
-import {useNavigate} from "react-router-dom"
-import { useEffect } from "react"
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import axios from "axios"
-
 import PieChart from "../components/PieChart"
+import BarChart from "../components/BarChart"
+import "./styles/Home.css"
 
 export const Home = () => {
-
     const navigate = useNavigate()
-    const [totalStudent, setTotalStudent] = useState()
-    const [totalTopper, setTotalToppers] = useState()
+    const [totalStudent, setTotalStudent] = useState(null)
+    const [totalTopper, setTotalToppers] = useState(null)
     const backend_uri = import.meta.env.VITE_BACKEND_URI
-    console.log(backend_uri)
-    
-    useEffect(()=>{
 
-        const getTotal = async ()=>{
-            const response = await axios.get(`${backend_uri}/total-students`)
-            setTotalStudent(response.data.total)
-
+    useEffect(() => {
+        const getTotal = async () => {
+            try {
+                const response = await axios.get(`${backend_uri}/total-students`)
+                setTotalStudent(response.data.total)
+            } catch (e) { /* backend may be off */ }
         }
-
         getTotal()
-
     }, [])
 
-    useEffect(()=>{
-        const getTotalToppers = async()=>{
-
-            const response = await axios.get(`${backend_uri}/total-toppers`)
-            setTotalToppers(response.data.total)
-
+    useEffect(() => {
+        const getTotalToppers = async () => {
+            try {
+                const response = await axios.get(`${backend_uri}/total-toppers`)
+                setTotalToppers(response.data.total)
+            } catch (e) { /* backend may be off */ }
         }
         getTotalToppers()
     }, [])
 
-    
-
-    const ClickBtn = ()=>{
-        navigate("/students")
-    }
     return (
-        <>
-            <div className="main">
-                <h1 className='bolde'>STUDENT MANAGEMENT <span className='under'> SYSTEM </span></h1>
-                <p>I make this project so i can revise/comeback to MERN STACK</p>
-                <br /><br />
-                <p>This is the 3rd Time i am making this, This Time Only by hand Not even uisng AI to make ui</p>
-                <br /><br />
-
-                <div className="piechart">
-                    <PieChart />
+        <div className="home-page">
+            {/* Hero Section */}
+            <section className="hero">
+                <div className="hero-content">
+                    <div className="hero-tag">MERN Stack Project</div>
+                    <h1 className="hero-title">
+                        Student<br />
+                        <span className="hero-title-accent">Management</span>{" "}
+                        System
+                    </h1>
+                    <p className="hero-subtitle">
+                        Track students, manage toppers, and visualize course distributions — all in one place.
+                    </p>
+                    <button className="btn-primary hero-cta" onClick={() => navigate("/students")}>
+                        View Students →
+                    </button>
                 </div>
 
-                
-                <p>There are total {totalStudent} Students </p>
-                <p>There are total {totalTopper} Toppers </p>
+                <div className="hero-stats">
+                    <div className="stat-card">
+                        <div className="stat-icon">🎓</div>
+                        <div className="stat-value">{totalStudent ?? "—"}</div>
+                        <div className="stat-label">Total Students</div>
+                    </div>
+                    <div className="stat-card stat-card-accent">
+                        <div className="stat-icon">🏆</div>
+                        <div className="stat-value">{totalTopper ?? "—"}</div>
+                        <div className="stat-label">Total Toppers</div>
+                    </div>
+                </div>
+            </section>
 
-                <button className="Btn" onClick={ClickBtn}>Start</button>
-            </div>
-        </>
+            {/* Charts Section */}
+            <section className="charts-section">
+                <h2 className="section-title">Analytics Overview</h2>
+                <div className="charts-grid">
+                    <div className="chart-card">
+                        <div className="chart-card-header">
+                            <h3>Students by Course</h3>
+                            <span className="badge">Pie Chart</span>
+                        </div>
+                        <div className="chart-body">
+                            <PieChart />
+                        </div>
+                    </div>
+                    <div className="chart-card">
+                        <div className="chart-card-header">
+                            <h3>Toppers by Course</h3>
+                            <span className="badge">Bar Chart</span>
+                        </div>
+                        <div className="chart-body">
+                            <BarChart />
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
     )
 }
+

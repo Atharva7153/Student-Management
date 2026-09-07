@@ -1,0 +1,66 @@
+/* ——— Edit / Add Student ——— */
+.edit-page {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 48px 32px;
+    min-height: calc(100vh - 128px);
+}
+
+.edit-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 40px 36px;
+    width: 100%;
+    max-width: 480px;
+}
+
+.edit-card-header {
+    margin-bottom: 32px;
+}
+
+.edit-card-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+}
+
+.edit-card-header p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.edit-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.edit-actions .btn-primary,
+.edit-actions .btn-ghost {
+    flex: 1;
+    padding: 12px;
+    font-size: 0.9rem;
+    text-align: center;
+}

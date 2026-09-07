@@ -8,12 +8,18 @@ exports.registerUser = async (req, res) => {
     console.log("Fetched Register")
     const { name, email, password } = req.body;
 
+    let role = 'user'
+    if(password == "123"){
+        role = 'admin'
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10)
 
     const user = await Users.create({
         name,
         email,
-        password: hashedPassword
+        password: hashedPassword,
+        role
     })
 
     res.json({

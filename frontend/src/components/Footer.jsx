@@ -3,15 +3,10 @@ import "./Footer.css"
 
 const Footer = () => {
   return (
-    
-    <>
-    <div className="line">
-        
-    </div>
-    <p>Nothing, Its just me planning my Comeback TBH</p>
-    <p>by :- Atharva Sharma</p>
-    
-    </>
+    <footer className="footer">
+      <p className="footer-text">Student Management System — MERN Stack Project</p>
+      <p className="footer-author">Built by Atharva Sharma</p>
+    </footer>
   )
 }
 
