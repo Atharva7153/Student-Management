@@ -6,8 +6,9 @@ const roleMiddleWare = (requiredRole) =>{
                 message : "Access Denied"
             })
 
-            next()
+            
         }
+        next()
     }
 }
 
