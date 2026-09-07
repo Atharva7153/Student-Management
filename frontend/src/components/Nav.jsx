@@ -11,6 +11,7 @@ const Nav = () => {
   return (
     <div className="navbar">
       <p>Hello {user?.name || "Guest"}</p>
+      <p>Role : {user.role || ""} </p>
 
       <Link className='None' to={"/"}>Home</Link>
       <Link className='None' to={"/students"}>Students</Link>
@@ -19,7 +20,12 @@ const Nav = () => {
         <>
           <Link className='None' to={"/about"}>About Me</Link>
           <Link className='None' to={"/toppers"}>Toppers</Link>
-          <Link className='None' to={"/edit"}>Edit</Link>
+          
+          {user.role === "admin" && (
+            <>
+            <Link className='None' to={"/edit"}>Edit</Link>
+            </>
+          )}
           <Link className='None' to={"/profile"}>Profile</Link>
         </>
       )}

@@ -16,6 +16,7 @@ const authMiddleware = async (req, res, next) =>{
         )
 
         req.userId = decoded.userId
+        req.userRole = decoded.role
 
         next()
     }catch(error){

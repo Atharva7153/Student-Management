@@ -15,6 +15,7 @@ import Signup from "./pages/Signup"
 import Login from "./pages/Login"
 import Profile from "./pages/Profile"
 import ProtectedRoute from "../src/components/ProtectedRoute"
+import AdminRoute from "./components/AdminRoute"
 
 
 
@@ -29,16 +30,21 @@ function App() {
         <Route path="/students" element={<Students />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        
+
 
         <Route element={<ProtectedRoute />}>
 
           <Route path="/toppers" element={<Toppers />} />
-          <Route path="/edit" element={<Edit />} />
           <Route path="/student/id/:id" element={<Details />} />
-          <Route path="/edit/id/:id" element={<EditStudent />} />
           <Route path="/about" element={<About />} />
           <Route path="/profile" element={<Profile />} />
+
+        </Route>
+
+        <Route element={<AdminRoute />}>
+
+          <Route path="/edit" element={<Edit />} />
+          <Route path="/edit/id/:id" element={<EditStudent />} />
 
         </Route>
 
